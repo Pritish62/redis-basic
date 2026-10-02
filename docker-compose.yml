@@ -1,0 +1,22 @@
+services:
+  redis: 
+    image: redis:latest
+    container_name: redis-basic
+    ports: 
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
+  mongo:
+    image: mongo:7.0
+    container_name: mongo-basic
+    ports:
+      - "27017:27017"
+    environment: 
+      MONGO_INITDB_DATABASE: mydatabase
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  redis-data:
+  mongo-data:
