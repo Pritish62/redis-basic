@@ -1,5 +1,5 @@
 import { Worker } from "bullmq";
-import { emailQueue, connection } from "./queue.js";
+import { connection } from "./queue.js";
 
 const worker = new Worker(
     "emailQueue",

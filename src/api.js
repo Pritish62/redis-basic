@@ -1,13 +1,13 @@
 import express from 'express';
-import emailQueue from './queue.js';
+import { emailQueue } from './queue.js';
 
 
 
 const app = express();
 app.use(express.json());
 
-app.post("/wlecome-email", async (req, res) => {
-    const job = emailQueue.add("send-emaill-queue",
+app.post("/sendemail", async (req, res) => {
+    const job = await emailQueue.add("send-email-queue",
         {
             to: req.body.to,
 
@@ -15,8 +15,8 @@ app.post("/wlecome-email", async (req, res) => {
             body: req.body.body || "Thank you for signing up. We're excited to have you on board!",
         },
         {
-            attampts: 3, // Number of attempts if the job fails
-            baclkoff: {
+            attempts: 3,
+            backoff: {
                 type: "exponential",
                 delay: 5000, // Initial delay in milliseconds
             },
